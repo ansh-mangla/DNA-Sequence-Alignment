@@ -5,6 +5,11 @@ This projects aim to align two sequences either globally or locally, based on Ne
 **Motivation**:
 "I started this project because i wanted to start working on bioinfromtics and related prjects and to deepen my understanding of fundamental tools used in it like sequence alignment."
 
+## Testing
+
+The project is tested in a unique way. The results are compared against the results of Biopython module. in `test.py`
+Several files have been provided for testing purposes in the `data` folder.
+
 ## Features
 
 1. The code alows for costum scoring. But in case scoreing not provided it assumes m = 1, mm = -1 and gap = -2
@@ -38,8 +43,9 @@ This projects aim to align two sequences either globally or locally, based on Ne
 
 ## Usage
 
-Using the code is very simple form the `from align.py import pairwise_alignment` and specify your sequences in the funciton.
-Within the repo **data** folder is provided with some sample sequences to run in the **test.py**
+Using the code is very simple, `from align.py import pairwise_alignment` and specify your sequences in the funciton.
+
+Within the repo **data** folder is provided with some sample sequences to run in the **test.py** .
 
 ## Algorithm Details
 

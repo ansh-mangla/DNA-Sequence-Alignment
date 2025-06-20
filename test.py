@@ -1,3 +1,4 @@
+"""Comparing my results to the Biopython module"""
 from align import *
 from Bio import SeqIO
 from Bio import Align
