@@ -18,23 +18,23 @@ my_align = pairwise_alignment(
     seq1, seq2, mode=mode, scheme=scheme)
 
 # biopython
-# seq1 = Seq(seq1)
-# seq2 = Seq(seq2)
+seq1 = Seq(seq1)
+seq2 = Seq(seq2)
 
-# aligner = Align.PairwiseAligner()
-# aligner.mode = mode
+aligner = Align.PairwiseAligner()
+aligner.mode = mode
 
-# aligner.match_score = 1
-# aligner.mismatch_score = -1
-# aligner.open_gap_score = -2
-# aligner.extend_gap_score = -2
+aligner.match_score = 1
+aligner.mismatch_score = -1
+aligner.open_gap_score = -2
+aligner.extend_gap_score = -2
 
-# alignments = aligner.align(seq1, seq2)
+alignments = aligner.align(seq1, seq2)
 
-# print(alignments[0].score)
+print(alignments[0].score)
 
 
-# # comparing scores
+# comparing scores
 
-# if my_align["score"] == alignments[0].score:
-#     print("Result matched.")
+if my_align["score"] == alignments[0].score:
+    print("Result matched.")
