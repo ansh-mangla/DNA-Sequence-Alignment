@@ -55,9 +55,9 @@ Both algorithms use customizable scoring schemes for matches, mismatches, and ga
 
 ## sample input and output
 
-### input
+### Input
 
-```text
+```python
 seq1 = "AGCTACGATCGA"
 seq2 = "AGCTGCGATA"
 my_align = pairwise_alignment(seq1, seq2, mode="global")
@@ -82,7 +82,7 @@ Length of align:       12
    Identity (%):       75
 ```
 
-### for larger sequences you might expact an output
+### For larger sequences you might expact an output
 
 (Here sequence is not shown since it will hinder the visuals)
 

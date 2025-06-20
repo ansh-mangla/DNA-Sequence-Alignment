@@ -20,8 +20,6 @@ def get_scoring_matrix(seq1, seq2, mode="global", scheme={"match": 1, "mismatch"
         s_matrix[0, 1:] = np.arange(1, n + 1) * scheme["gap"]
         s_matrix[1:, 0] = np.arange(1, l + 1) * scheme["gap"]
 
-    # print(s_matrix)
-
     for j in range(1, len(seq1)+1):
         for i in range(1, len(seq2)+1):
 
@@ -37,15 +35,6 @@ def get_scoring_matrix(seq1, seq2, mode="global", scheme={"match": 1, "mismatch"
                 s_matrix[i, j] = max(options)
             else:
                 s_matrix[i, j] = max(options) if max(options) > 0 else 0
-    # print(s_matrix)
-
-    # the scoring matrix to visualization
-    # s_matrix_df = pd.DataFrame(
-    #     s_matrix,
-    #     index=[seq2[n-1] if n != 0 else 0 for n in range(l+1)],
-    #     columns=[seq1[n-1] if n != 0 else 0 for n in range(n+1)]
-    # ).astype(int)
-    # print(s_matrix_df)
 
     return s_matrix
     n = len(seq1)
@@ -75,6 +64,19 @@ def get_scoring_matrix(seq1, seq2, mode="global", scheme={"match": 1, "mismatch"
     print(s_matrix_df)
 
     return s_matrix
+
+
+def print_s_matrix(s_matrix: np.ndarray, seq1: str, seq2: str):
+    """print the scoring matrix"""
+
+    n = len(seq1)
+    l = len(seq2)
+    s_matrix_df = pd.DataFrame(
+        s_matrix,
+        index=[seq2[n-1] if n != 0 else 0 for n in range(l+1)],
+        columns=[seq1[n-1] if n != 0 else 0 for n in range(n+1)]
+    ).astype(int)
+    print(s_matrix_df)
 
 
 def traceback(s_matrix: np.ndarray, seq1: str, seq2: str, mode="global", scheme={"match": 1, "mismatch": -1, "gap": -2}):
@@ -107,7 +109,6 @@ def traceback(s_matrix: np.ndarray, seq1: str, seq2: str, mode="global", scheme=
     while i > 0 or j > 0:
 
         current = s_matrix[i][j]
-        # print(current)
 
         diago = (
             s_matrix[i - 1, j - 1]
@@ -119,8 +120,6 @@ def traceback(s_matrix: np.ndarray, seq1: str, seq2: str, mode="global", scheme=
 
         # stope when the local sequence alinged / matched
         if mode == "local" and current == 0:
-            # align_seq1.append(seq1[j - 1])
-            # align_seq2.append(seq2[i - 1])
             break
 
         # actual traceback
