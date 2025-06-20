@@ -37,33 +37,6 @@ def get_scoring_matrix(seq1, seq2, mode="global", scheme={"match": 1, "mismatch"
                 s_matrix[i, j] = max(options) if max(options) > 0 else 0
 
     return s_matrix
-    n = len(seq1)
-    l = len(seq2)
-    s_matrix = np.zeros((l+1, n+1))
-    # print(s_matrix)
-
-    for j in range(1, len(seq1)+1):
-        for i in range(1, len(seq2)+1):
-
-            diago = s_matrix[i-1, j-1] + \
-                (scheme["match"] if seq1[j - 1] ==
-                    seq2[i-1] else scheme["mismatch"])
-            top = s_matrix[i-1, j] + scheme["gap"]
-            left = s_matrix[i, j-1] + scheme["gap"]
-
-            options = [diago, top, left]
-            s_matrix[i, j] = max(options) if max(options) > 0 else 0
-    # print(s_matrix)
-
-    # the scoring matrix to visualization
-    s_matrix_df = pd.DataFrame(
-        s_matrix,
-        index=[seq2[n-1] if n != 0 else 0 for n in range(l+1)],
-        columns=[seq1[n-1] if n != 0 else 0 for n in range(n+1)]
-    ).astype(int)
-    print(s_matrix_df)
-
-    return s_matrix
 
 
 def print_s_matrix(s_matrix: np.ndarray, seq1: str, seq2: str):
