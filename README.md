@@ -1,65 +1,95 @@
-# DNA sequence alignment
+````markdown
+# DNA Sequence Alignment
 
-This projects aim to align two sequences either globally or locally, based on Needlmen-Wunsch and Smith-Waterman algorithm implemented in python using libraries like numpy and pandas.
+This project aligns two sequences either **globally** or **locally**, based on the **Needleman-Wunsch** and **Smith-Waterman** algorithms implemented in Python using libraries like `numpy` and `pandas`.
 
-**Motivation**:
-"I started this project because i wanted to start working on bioinfromtics and related prjects and to deepen my understanding of fundamental tools used in it like sequence alignment."
+## Motivation
+> I started this project to begin working on bioinformatics projects and to deepen my understanding of fundamental tools, such as sequence alignment.
+
+---
 
 ## Testing
 
-The project is tested in a unique way. The results are compared against the results of Biopython module. in `test.py`
-Several files have been provided for testing purposes in the `data` folder.
+The project is tested by comparing its results against the **Biopython** module in `test.py`. Several files are provided for testing purposes in the `data` folder.
+
+---
 
 ## Features
 
-1. The code alows for costum scoring. But in case scoreing not provided it assumes m = 1, mm = -1 and gap = -2
-2. The alignment is also printed in the consol for accurate visualization
-3. For all sequence alignmennnt a single function operties `paiwise_alignment(seq1, seq2, mode)` and returns a python `dict` dictionary. Including keys like:
+1. **Custom scoring:** You can provide your own scoring scheme. If not provided, the defaults are: match = 1, mismatch = -1, gap = -2.  
+2. **Console visualization:** The alignment is printed in the console for clear visualization.  
+3. **Single function interface:** All sequence alignments are performed using:
 
 ```python
-    alignment = {
-        "seq1": str
-        "seq2": str
-        "align_seq1": str
-        "align_seq2": str
-        "score": int
-        "stats": dict
-        "matrix": numpy.ndarray
-    }
+pairwise_alignment(seq1, seq2, mode, align=True)
+````
 
-    stat = {
-        "match": int,
-        "mismatch": int,
-        "seq1_gap": int,
-        "seq2_gap": int,
-        "identity": float
-    }
+It returns a Python dictionary with the following structure:
 
+```python
+alignment = {
+    "seq1": str,
+    "seq2": str,
+    "align_seq1": str,
+    "align_seq2": str,
+    "score": int,
+    "stats": dict,
+    "matrix": numpy.ndarray
+}
+
+stats = {
+    "match": int,
+    "mismatch": int,
+    "seq1_gap": int,
+    "seq2_gap": int,
+    "identity": float
+}
 ```
 
-4. in the `paiwise_alignment(seq1, seq2, mode, align=True)` can specify an align argument which decides whether the alignment will be printed or not.
-5. After each time the function is run irrespective of align argument it prints a table which gives stastics pertaining to the alignment.
-6. For shorter sequences i.e. below length of 20 a function called `heat_map(s_matrix, seq1: str, seq2: str)` return a heatmap for the scoring matrix.
+4. The `align` argument in `pairwise_alignment(seq1, seq2, mode, align=True)` determines whether the alignment is printed in the console.
+5. After each run, a table is printed showing statistics related to the alignment.
+6. For shorter sequences (length < 20), a function called `heat_map(s_matrix, seq1: str, seq2: str)` generates a heatmap for the scoring matrix.
+
+---
 
 ## Usage
 
-Using the code is very simple, `from align.py import pairwise_alignment` and specify your sequences in the funciton.
+Import the function and specify your sequences:
 
-Within the repo **data** folder is provided with some sample sequences to run in the **test.py** .
+```python
+from align import pairwise_alignment
+
+seq1 = "AGCTACGATCGA"
+seq2 = "AGCTGCGATA"
+my_align = pairwise_alignment(seq1, seq2, mode="global")
+```
+
+The repository’s **data** folder contains sample sequences to use in `test.py`.
+
+---
 
 ## Algorithm Details
 
-This project implements two classic sequence alignment algorithms:
+### Needleman-Wunsch (Global Alignment)
 
-- **Needleman-Wunsch (Global Alignment):**  
-  A dynamic programming algorithm that finds the optimal alignment between two sequences over their entire length. It initializes the scoring matrix with cumulative gap penalties and traces back from the bottom-right cell to build the full alignment.
+A dynamic programming algorithm that finds the optimal alignment over the entire length of two sequences.
 
-- **Smith-Waterman (Local Alignment):**  
-  Also based on dynamic programming, but focuses on finding the highest-scoring local region between two sequences. It initializes the first row and column with zeros to allow alignments to start anywhere, sets negative scores to zero during matrix filling, and traces back from the highest scoring cell until a zero score is reached.
+* Initializes the scoring matrix with cumulative gap penalties.
+* Traces back from the bottom-right cell to build the full alignment.
 
-Both algorithms use customizable scoring schemes for matches, mismatches, and gaps, and the traceback reconstructs the optimal alignment according to the scoring matrix.
+### Smith-Waterman (Local Alignment)
 
-## sample input and output
+Also based on dynamic programming but focuses on finding the highest-scoring local region between two sequences.
+
+* First row and column initialized to zeros to allow local alignments.
+* Negative scores are set to zero during matrix filling.
+* Traces back from the highest-scoring cell until zero is reached.
+
+Both algorithms allow **customizable scoring schemes** for matches, mismatches, and gaps.
+
+---
+
+## Sample Input and Output
 
 ### Input
 
@@ -69,7 +99,7 @@ seq2 = "AGCTGCGATA"
 my_align = pairwise_alignment(seq1, seq2, mode="global")
 ```
 
-### Output
+### Output (short sequences)
 
 ```text
 Seq A    1  A G C T A C G A T C G A
@@ -88,11 +118,11 @@ Length of align:       12
    Identity (%):       75
 ```
 
-### For larger sequences you might expact an output
+### Output (larger sequences)
 
-(Here sequence is not shown since it will hinder the visuals)
+*(Sequence not shown for readability)*
 
-```test
+```text
            stats   value
 Length of align:     1548
           Score:      859
@@ -104,7 +134,11 @@ Length of align:     1548
    Identity (%):       78
 ```
 
-## Potential improvement and future prospects
+---
 
-1. The implementation works of linear gap panelites and does not consider afine gap penalties.
-2. Only align two sequenes pairwise (no multiple sequence alignment)
+## Potential Improvements and Future Prospects
+
+1. Currently uses **linear gap penalties**; affine gap penalties could improve alignment scoring.
+2. Supports **only pairwise sequence alignment**; extending to multiple sequence alignment could be a future improvement.
+
+```
