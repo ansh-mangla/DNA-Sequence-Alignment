@@ -1,4 +1,3 @@
-````markdown
 # DNA Sequence Alignment
 
 This project aligns two sequences either **globally** or **locally**, based on the **Needleman-Wunsch** and **Smith-Waterman** algorithms implemented in Python using libraries like `numpy` and `pandas`.
